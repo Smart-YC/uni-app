@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		页面 - 2
+		关注
 	</view>
 </template>
 

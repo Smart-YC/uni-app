@@ -39,8 +39,8 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "角落里的阳光",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#FFFF",
+		"backgroundColor": "#FFFF"
 	},
 	"tabBar": {
 		"borderStyle": "black",
