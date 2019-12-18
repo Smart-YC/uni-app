@@ -29,21 +29,20 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 10rpx 30rpx;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
   font-size: 28rpx;
+  padding: 16rpx 0;
 }
 .container {
-  background: #F8F8F8;
+  background: #f8f8f8;
   padding: 20rpx;
 }
 .container .card {
     width: 100%;
     height: auto;
-    background: #FFF;
+    background: #fff;
     border-radius: 5rpx;
     margin-bottom: 20rpx;
 }
@@ -58,10 +57,20 @@
 .container .card .wrap .title {
         font-size: 32rpx;
         margin-bottom: 30rpx;
+        overflow: hidden;
+        white-space: nowrap;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
 }
 .container .card .wrap .section {
         font-size: 28rpx;
         color: #333;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
 }
 .container .card .footer {
       display: -webkit-box;
@@ -85,5 +94,33 @@
 }
 .container .card .footer text {
         vertical-align: middle;
+}
+.container .card .content-list {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-justify-content: space-around;
+          -ms-flex-pack: distribute;
+              justify-content: space-around;
+}
+.container .card .content-list .left {
+        -webkit-box-flex: 2;
+        -webkit-flex: 2;
+            -ms-flex: 2;
+                flex: 2;
+        overflow: hidden;
+}
+.container .card .content-list .right {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        overflow: hidden;
+        padding: 30rpx 30rpx 0 0;
+}
+.container .card .content-list .right image {
+          height: 140rpx;
+          border-radius: 10rpx;
 }
 

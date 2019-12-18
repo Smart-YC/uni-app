@@ -255,7 +255,7 @@ function isSyncApi(name) {
 }
 
 function isCallbackApi(name) {
-  return CALLBACK_API_RE.test(name);
+  return CALLBACK_API_RE.test(name) && name !== 'onPush';
 }
 
 function handlePromise(promise) {
@@ -1285,11 +1285,20 @@ function parseBaseComponent(vueComponentOptions)
 {var _ref5 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},isPage = _ref5.isPage,initRelation = _ref5.initRelation;var _initVueComponent =
   initVueComponent(_vue.default, vueComponentOptions),_initVueComponent2 = _slicedToArray(_initVueComponent, 2),VueComponent = _initVueComponent2[0],vueOptions = _initVueComponent2[1];
 
-  var componentOptions = {
-    options: {
-      multipleSlots: true,
-      addGlobalClass: true },
+  var options = {
+    multipleSlots: true,
+    addGlobalClass: true };
 
+
+  {
+    // 微信multipleSlots  部分情况有 bug，导致内容顺序错乱 如 u-list，提供覆盖选项
+    if (vueOptions['mp-weixin'] && vueOptions['mp-weixin']['options']) {
+      Object.assign(options, vueOptions['mp-weixin']['options']);
+    }
+  }
+
+  var componentOptions = {
+    options: options,
     data: initData(vueOptions, _vue.default.prototype),
     behaviors: initBehaviors(vueOptions, initBehavior),
     properties: initProperties(vueOptions.props, false, vueOptions.__file),
@@ -7492,9 +7501,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!**************************************!*\
-  !*** D:/wechatspace/tabs/pages.json ***!
-  \**************************************/
+/*!********************************************!*\
+  !*** D:/workspace_test/uni-app/pages.json ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8395,24 +8404,24 @@ main();
 /*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-23720191024001","_inBundle":false,"_integrity":"sha512-vJEk493Vdb8KueNzR2otzDi23rfyRcQBo/t1R41MwNGPk+AUB94gh10+HVLo98DRcvMzkuVofz3KXTAfEx24iw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-23720191024001.tgz","_shasum":"18272814446a9bc6053bc92666ec7064a1767588","_spec":"@dcloudio/uni-stat@next","_where":"/Users/fxy/Documents/DCloud/HbuilderX-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"a725c04ef762e5df78a9a69d140c2666e0de05fc","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-23720191024001"};
+module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-24220191115004","_inBundle":false,"_integrity":"sha512-UKnpiHSP7h9c5IFpJFkWkpm1KyWz9iHj1hchrQSUxPhChx+KPOmunnQcKGiQvvBz9CeSi7Se/eauJYha5ch0kw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-24220191115004.tgz","_shasum":"5848f2204f37daaf8c340fb27d9f76b16fcbfdeb","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"bcf65737c5111d47398695d3db8ed87305df346e","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-24220191115004"};
 
 /***/ }),
 /* 7 */
-/*!*******************************************************!*\
-  !*** D:/wechatspace/tabs/pages.json?{"type":"style"} ***!
-  \*******************************************************/
+/*!*************************************************************!*\
+  !*** D:/workspace_test/uni-app/pages.json?{"type":"style"} ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabbar/tabbar-1/tabbar-1": { "navigationBarTitleText": "角落里的阳光", "usingComponents": {} }, "pages/tabbar/tabbar-2/tabbar-2": { "usingComponents": {} }, "pages/tabbar/tabbar-3/tabbar-3": { "usingComponents": {} }, "pages/tabbar/tabbar-4/tabbar-4": { "usingComponents": {} }, "pages/tabbar/tabbar-5/tabbar-5": { "usingComponents": {} }, "pages/tabbar-3-detial/tabbar-3-release/tabbar-3-release": { "usingComponents": {} }, "pages/tabbar-3-detial/tabbar-3-video/tabbar-3-video": { "usingComponents": {} }, "pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa": { "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "角落里的阳光", "navigationBarBackgroundColor": "#FFFF", "backgroundColor": "#FFFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/tabbar/tabbar-1/tabbar-1": { "navigationBarTitleText": "角落里的阳光" }, "pages/tabbar/tabbar-2/tabbar-2": {}, "pages/tabbar/tabbar-3/tabbar-3": {}, "pages/tabbar/tabbar-4/tabbar-4": {}, "pages/tabbar/tabbar-5/tabbar-5": {}, "pages/tabbar-3-detial/tabbar-3-release/tabbar-3-release": {}, "pages/tabbar-3-detial/tabbar-3-video/tabbar-3-video": {}, "pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "角落里的阳光", "navigationBarBackgroundColor": "#FFFF", "backgroundColor": "#FFFF" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
-/*!******************************************************!*\
-  !*** D:/wechatspace/tabs/pages.json?{"type":"stat"} ***!
-  \******************************************************/
+/*!************************************************************!*\
+  !*** D:/workspace_test/uni-app/pages.json?{"type":"stat"} ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8529,6 +8538,86 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+/* 15 */
+/*!***************************************************!*\
+  !*** D:/workspace_test/uni-app/common/request.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _config = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var request = {};
+var headers = {};
+var PORT1 = '/baseinfo';
+
+request.globalRequest = function (url, method, data) {
+
+  return uni.request({
+    url: _config.default + url,
+    method: method,
+    data: data,
+    dataType: 'json' }).
+  then(function (res) {
+    if (res[1].statusCode && res[1].statusCode == 200) {
+      return res[1].data;
+    } else {
+      throw res[1].data;
+    }
+  }).catch(function (parmas) {
+    switch (parmas.code) {
+      case 401:
+        uni.clearStorageSync();
+        break;
+      default:
+        // 请求成功
+        return Promise.reject();
+        break;}
+
+  });
+};var _default =
+
+request;exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+/* 16 */
+/*!**************************************************!*\
+  !*** D:/workspace_test/uni-app/common/config.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var url_config = "";
+
+if (true) {
+  // 开发环境
+  url_config = 'http://127.0.0.1:7001';
+} else {}var _default =
+
+url_config;exports.default = _default;
+
+/***/ }),
+/* 17 */
+/*!**********************************************!*\
+  !*** D:/workspace_test/uni-app/api/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! @/common/request.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var api = {};
+// 获取标签列表
+api.tablist = function (params) {return _request.default.globalRequest("/tab/list", 'GET');};
+// 获取对应标签内容
+api.tabForContent = function (params) {return _request.default.globalRequest("/content/list", 'GET', params);};var _default =
+api;exports.default = _default;
 
 /***/ })
 ]]);

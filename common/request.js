@@ -12,7 +12,6 @@ request.globalRequest = (url, method, data) => {
 		data: data,
 		dataType: 'json'
 	}).then(res => {
-		console.log(res)
 		if (res[1].statusCode && res[1].statusCode == 200) {
 			return res[1].data
 		} else {

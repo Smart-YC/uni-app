@@ -4,13 +4,14 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
-		"newFeature": true
+		"urlCheck": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.0",
+	"libVersion": "2.9.2",
 	"appid": "touristappid",
 	"projectname": "my_blogs",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

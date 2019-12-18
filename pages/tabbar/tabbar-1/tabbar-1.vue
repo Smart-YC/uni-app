@@ -1,65 +1,100 @@
 <template>
 	<view class="content">
 		<view class="tabs">
-			<liuyuno-tabs :tabData="tabs" :defaultIndex="defaultIndex" />
+			<text v-for="item in tabs" :key="item.id">{{ item.title }}</text>
 		</view>
 		<scroll-view scroll-y="true">
 			<view class="container">
+				<!-- start 首条信息  -->
 				<view class="card ">
-					<image src="http://i2.tiimg.com/694610/cbd573a4f32869a7.jpg" mode="scaleToFill" lazy-load></image>
+					<image :src="content[0].thumb" mode="scaleToFill" lazy-load></image>
 					<view class="wrap">
-						<view class="title">不一样的北欧风，面积不大却很实用</view>
-						<view class="section">
-							做一个优雅安静的女人，要懂得没有无缘无故的爱，也没有无缘无故的恨，要相信爱情，知道，付出不一定有收获，不付出，就一定没有，凡事尽力就好，绝不奢望奇迹出现！
-						</view>
+						<view class="title">{{ content[0].title }}</view>
+						<view class="section">{{ content[0].content }}</view>
 					</view>
 					<view class="footer">
 						<view class="info">
-							<image src="http://i2.tiimg.com/694610/81df69684288027f.jpg" mode="aspectFill"></image>
-							<text>不动声色</text>
+							<image :src="content[0].head_img" mode="aspectFill"></image>
+							<text>{{ content[0].author }}</text>
 						</view>
-						<view class="time">15分钟之前</view>
+						<view class="time">{{ content[0].time | formDate}}</view>
 					</view>
 				</view>
+				<!-- end 首条信息  -->
+				<!-- start 剩下信息 -->
+				<view class="card " v-for="item in content" :key="item.id">
+					<view class="content-list">
+						<view class="wrap left">
+							<view class="title">{{ item.title }}</view>
+							<view class="section">{{ item.content }}</view>
+						</view>
+						<view class="right"><image :src="item.thumb" mode="scaleToFill" lazy-load></image></view>
+					</view>
+					<view class="footer">
+						<view class="info">
+							<image :src="item.head_img" mode="aspectFill"></image>
+							<text>{{ item.author }}</text>
+						</view>
+						<view class="time">{{ item.time | formDate}}</view>
+					</view>
+				</view>
+				<!-- end 剩下信息 -->
 			</view>
 		</scroll-view>
 	</view>
 </template>
 
 <script>
-import liuyunoTabs from "@/components/liuyuno-tabs/liuyuno-tabs.vue";
 export default {
 	data() {
 		return {
-			title: 'main',
 			tabs: [],
-			defaultIndex: 0
+			content: []
 		};
 	},
-	components: {
-	        liuyunoTabs
-	    },
+	filters: {
+		formDate(time){
+			const d = new Date(time);
+			const datetime=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':0' + d.getMinutes() + ':0' + d.getSeconds();
+			return datetime
+		}
+	},
 	onLoad() {
-		this.initTabs();
+		this.initTabs(data => {
+			// 默认第一个选项
+			this.getContent(data[0].id);
+		});
 	},
 	methods: {
 		// 获取标签页
-		initTabs() {
+		initTabs(callback) {
 			const _this = this;
 			_this.$api
 				.tablist()
 				.then(res => {
-					// 获得数据
 					if (+res.code === 1) {
 						const { data } = res;
-						data.map((item, index)=>{
-							_this.tabs.push(item.title)
-						})
+						_this.tabs = data;
+						callback(data);
 					}
-					console.log(res);
 				})
 				.catch(res => {
-					console.log(res); // 失败进行的操作
+					console.log(res);
+				});
+		},
+		// 获取内容
+		getContent(id) {
+			const _this = this;
+			_this.$api
+				.tabForContent({ id: id })
+				.then(res => {
+					if (+res.code === 1) {
+						const { data } = res;
+						_this.content = data;
+					}
+				})
+				.catch(res => {
+					console.log(res);
 				});
 		}
 	}
@@ -69,8 +104,9 @@ export default {
 <style lang="scss">
 .tabs {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	font-size: 28upx;
+	padding: 16upx 0;
 }
 .container {
 	background: #f8f8f8;
@@ -90,15 +126,22 @@ export default {
 
 		.wrap {
 			padding: 30upx;
-
 			.title {
 				font-size: 32upx;
 				margin-bottom: 30upx;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
 			}
 
 			.section {
 				font-size: 28upx;
 				color: $uni-text-color;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 2;
 			}
 		}
 
@@ -117,6 +160,23 @@ export default {
 			}
 			text {
 				vertical-align: middle;
+			}
+		}
+		.content-list {
+			display: flex;
+			justify-content: space-around;
+			.left {
+				flex: 2;
+				overflow: hidden;
+			}
+			.right {
+				flex: 1;
+				overflow: hidden;
+				padding: 30upx 30upx 0 0;
+				image {
+					height: 140upx;
+					border-radius: 10upx;
+				}
 			}
 		}
 	}
