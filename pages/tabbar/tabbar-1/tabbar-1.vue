@@ -1,12 +1,12 @@
 <template>
 	<view class="content">
 		<view class="tabs">
-			<text v-for="item in tabs" :key="item.id">{{ item.title }}</text>
+			<view v-for="(item, index) in tabs" :key="item.id" :class="{ active: defaultIndex === index }" @click="switchTab(item.id)">{{ item.title }}</view>
 		</view>
-		<scroll-view scroll-y="true">
-			<view class="container">
+		<view class="container">
+			<scroll-view scroll-y="true">
 				<!-- start 首条信息  -->
-				<view class="card ">
+				<view class="card " v-if="content.length > 0">
 					<image :src="content[0].thumb" mode="scaleToFill" lazy-load></image>
 					<view class="wrap">
 						<view class="title">{{ content[0].title }}</view>
@@ -17,30 +17,34 @@
 							<image :src="content[0].head_img" mode="aspectFill"></image>
 							<text>{{ content[0].author }}</text>
 						</view>
-						<view class="time">{{ content[0].time | formDate}}</view>
+						<view class="time">{{ content[0].time | formDate }}</view>
 					</view>
 				</view>
+				<!-- 无数据 -->
+				<view class="no-data" v-else><text>暂无数据</text></view>
 				<!-- end 首条信息  -->
 				<!-- start 剩下信息 -->
-				<view class="card " v-for="item in content" :key="item.id">
-					<view class="content-list">
-						<view class="wrap left">
-							<view class="title">{{ item.title }}</view>
-							<view class="section">{{ item.content }}</view>
+				<view class="card " v-for="(item, index) in content" :key="item.id">
+					<view v-if="content.length > 1 && index > 0">
+						<view class="content-list">
+							<view class="wrap left">
+								<view class="title">{{ item.title }}</view>
+								<view class="section">{{ item.content }}</view>
+							</view>
+							<view class="right"><image :src="item.thumb" mode="scaleToFill" lazy-load></image></view>
 						</view>
-						<view class="right"><image :src="item.thumb" mode="scaleToFill" lazy-load></image></view>
-					</view>
-					<view class="footer">
-						<view class="info">
-							<image :src="item.head_img" mode="aspectFill"></image>
-							<text>{{ item.author }}</text>
+						<view class="footer">
+							<view class="info">
+								<image :src="item.head_img" mode="aspectFill"></image>
+								<text>{{ item.author }}</text>
+							</view>
+							<view class="time">{{ item.time | formDate }}</view>
 						</view>
-						<view class="time">{{ item.time | formDate}}</view>
 					</view>
 				</view>
 				<!-- end 剩下信息 -->
-			</view>
-		</scroll-view>
+			</scroll-view>
+		</view>
 	</view>
 </template>
 
@@ -49,22 +53,25 @@ export default {
 	data() {
 		return {
 			tabs: [],
-			content: []
+			content: [],
+			defaultIndex: 0
 		};
 	},
 	filters: {
-		formDate(time){
+		formDate(time) {
 			const d = new Date(time);
-			const datetime=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':0' + d.getMinutes() + ':0' + d.getSeconds();
-			return datetime
+			const datetime = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':0' + d.getMinutes() + ':0' + d.getSeconds();
+			return datetime;
 		}
 	},
 	onLoad() {
+		uni.startPullDownRefresh();
 		this.initTabs(data => {
 			// 默认第一个选项
 			this.getContent(data[0].id);
 		});
 	},
+	onPullDownRefresh() {},
 	methods: {
 		// 获取标签页
 		initTabs(callback) {
@@ -91,11 +98,20 @@ export default {
 					if (+res.code === 1) {
 						const { data } = res;
 						_this.content = data;
+						uni.stopPullDownRefresh();
 					}
 				})
 				.catch(res => {
 					console.log(res);
 				});
+		},
+		switchTab(id) {
+			if (id === this.defaultIndex) {
+				// 已点中的再次点击不处理
+				return;
+			}
+			this.defaultIndex = id;
+			this.getContent(id);
 		}
 	}
 };
@@ -107,10 +123,20 @@ export default {
 	justify-content: space-around;
 	font-size: 28upx;
 	padding: 16upx 0;
+	position: fixed;
+	left: 0;
+	top: 80upx;
+	width: 100%;
+	z-index: 100000000;
+	background: #fff;
+	.active {
+		color: #007aff;
+	}
 }
 .container {
 	background: #f8f8f8;
-	padding: 20upx;
+	padding: 80upx 20upx 20upx 20upx;
+	height: 100%;
 	.card {
 		width: 100%;
 		height: auto;
@@ -178,6 +204,18 @@ export default {
 					border-radius: 10upx;
 				}
 			}
+		}
+	}
+	.no-data {
+		height: 80%;
+		display: flex;
+		justify-content: center;
+		font-size: 24upx;
+		align-items: center;
+		text-align: center;
+		image {
+			width: 200upx;
+			height: 200upx;
 		}
 	}
 }
