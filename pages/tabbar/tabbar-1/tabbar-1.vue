@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import {dateDiff} from "../../../common/util.js"
 export default {
 	data() {
 		return {
@@ -59,9 +60,7 @@ export default {
 	},
 	filters: {
 		formDate(time) {
-			const d = new Date(time);
-			const datetime = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':0' + d.getMinutes() + ':0' + d.getSeconds();
-			return datetime;
+			return dateDiff(new Date(time).getTime());
 		}
 	},
 	onLoad() {
