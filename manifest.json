@@ -1,13 +1,19 @@
 {
-    "name" : "my_blogs",
-    "appid" : "__UNI__19D911E",
-    "description" : "我的个人博客",
+    "name" : "myStore",
+    "appid" : "__UNI__C04AB91",
+    "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
     "app-plus" : {
-        "usingComponents" : true,
         /* 5+App特有相关 */
+        "usingComponents" : true,
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
+        },
         "modules" : {},
         /* 模块配置 */
         "distribute" : {
@@ -48,10 +54,11 @@
     "quickapp" : {},
     /* 快应用特有相关 */
     "mp-weixin" : {
+        /* 小程序特有相关 */
+        "usingComponents" : true,
         "appid" : "wxf24c84143177a8f4",
         "setting" : {
             "urlCheck" : true
-        },
-        "usingComponents" : true
+        }
     }
 }

@@ -1,56 +1,60 @@
 {
   "pages": [
-    "pages/tabbar/tabbar-1/tabbar-1",
-    "pages/tabbar/tabbar-2/tabbar-2",
-    "pages/tabbar/tabbar-3/tabbar-3",
-    "pages/tabbar/tabbar-4/tabbar-4",
-    "pages/tabbar/tabbar-5/tabbar-5",
-    "pages/tabbar-3-detial/tabbar-3-release/tabbar-3-release",
-    "pages/tabbar-3-detial/tabbar-3-video/tabbar-3-video",
-    "pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa"
+    "pages/index/index",
+    "pages/product/product",
+    "pages/set/set",
+    "pages/userinfo/userinfo",
+    "pages/cart/cart",
+    "pages/public/login",
+    "pages/user/user",
+    "pages/detail/detail",
+    "pages/order/order",
+    "pages/money/money",
+    "pages/order/createOrder",
+    "pages/address/address",
+    "pages/address/addressManage",
+    "pages/money/pay",
+    "pages/money/paySuccess",
+    "pages/notice/notice",
+    "pages/category/category",
+    "pages/product/list"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "角落里的阳光",
-    "navigationBarBackgroundColor": "#FFFF",
-    "backgroundColor": "#FFFF"
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#f8f8f8"
   },
   "tabBar": {
+    "color": "#C0C4CC",
+    "selectedColor": "#fa436a",
     "borderStyle": "black",
-    "backgroundColor": "#333",
-    "color": "#8F8F94",
-    "selectedColor": "#f33e54",
+    "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/tabbar/tabbar-1/tabbar-1",
-        "iconPath": "static/img/tabbar/home.png",
-        "selectedIconPath": "static/img/tabbar/homeactive.png",
+        "pagePath": "pages/index/index",
+        "iconPath": "static/tab-home.png",
+        "selectedIconPath": "static/tab-home-current.png",
         "text": "首页"
       },
       {
-        "pagePath": "pages/tabbar/tabbar-2/tabbar-2",
-        "iconPath": "static/img/tabbar/guanzhu.png",
-        "selectedIconPath": "static/img/tabbar/guanzhuactive.png",
-        "text": "关注"
+        "pagePath": "pages/category/category",
+        "iconPath": "static/tab-cate.png",
+        "selectedIconPath": "static/tab-cate-current.png",
+        "text": "分类"
       },
       {
-        "pagePath": "pages/tabbar/tabbar-3/tabbar-3",
-        "iconPath": "static/img/tabbar/add.png",
-        "selectedIconPath": "static/img/tabbar/addactive.png",
-        "text": "发布"
+        "pagePath": "pages/cart/cart",
+        "iconPath": "static/tab-cart.png",
+        "selectedIconPath": "static/tab-cart-current.png",
+        "text": "购物车"
       },
       {
-        "pagePath": "pages/tabbar/tabbar-4/tabbar-4",
-        "iconPath": "static/img/tabbar/news.png",
-        "selectedIconPath": "static/img/tabbar/newsactive.png",
-        "text": "消息"
-      },
-      {
-        "pagePath": "pages/tabbar/tabbar-5/tabbar-5",
-        "iconPath": "static/img/tabbar/me.png",
-        "selectedIconPath": "static/img/tabbar/meactive.png",
-        "text": "我"
+        "pagePath": "pages/user/user",
+        "iconPath": "static/tab-my.png",
+        "selectedIconPath": "static/tab-my-current.png",
+        "text": "我的"
       }
     ]
   },
